@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الاستشارات - لوحة المستشار</title>
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/consultant.css">
+    <style>
+        /* Section Display */
+        .page-section { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .page-section.active { display: block; opacity: 1; }
+        
+        /* Toast Container */
+        .toast-container { position: fixed; top: 20px; left: 20px; z-index: 9999; }
+        
+        /* Spinner for buttons */
+        .spinner-border-sm { display: none; }
+        .btn.loading .spinner-border-sm { display: inline-block; }
+        .btn.loading span { display: none; }
+
+        :root {
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --card-hover-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .custom-card:hover {
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        /* Stat Cards Enhancement */
+        .stat-card {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-details h4 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--primary-color);
+        }
+
+        .stat-details p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-trend {
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Appointments List Enhancement */
+        .appointment-row {
+            padding: 1rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .appointment-row:hover {
+            background-color: var(--bg-color);
+            border-color: rgba(0, 191, 166, 0.1);
+        }
+
+        /* Messages / Chat Enhancement */
+        .list-item-active {
+            background-color: rgba(0, 191, 166, 0.05) !important;
+            border-right: 4px solid var(--accent-color) !important;
+        }
+
+        .chat-messages {
+            padding: 1.5rem;
+            background: #fdfdfd;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            margin-bottom: 1rem;
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .message-sent {
+            background-color: var(--primary-color);
+            color: #fff;
+            align-self: flex-start;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message-received {
+            background-color: #fff;
+            color: var(--text-color);
+            align-self: flex-end;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #eee;
+        }
+
+        /* Profile Enhancement */
+        .profile-summary-card {
+            background: linear-gradient(135deg, var(--primary-color), #2c3e50);
+            color: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-summary-info h4 {
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        .profile-summary-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-rating {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Global polish */
+        .btn-primary, .btn-accent {
+            box-shadow: 0 4px 12px rgba(0, 191, 166, 0.2);
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 191, 166, 0.3);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(0, 191, 166, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .sidebar .nav-link {
+            transition: var(--transition);
+        }
+
+        /* Responsive Sidebar Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                right: 0;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                box-shadow: none;
+            }
+            .sidebar.show {
+                transform: translateX(0);
+                box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+            }
+            .main-content {
+                margin-right: 0 !important;
+                width: 100% !important;
+            }
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 1050;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .sidebar-overlay.show {
+                display: block;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <!-- Close button mobile -->
+        <button class="btn-close btn-close-white d-md-none position-absolute top-0 start-0 m-3" id="closeSidebar"></button>
+        
+        <div class="sidebar-header">
+            <h3>ConsultPro</h3>
+            <p class="text-white-50 small mb-0">لوحة المستشار</p>
+        </div>
+        <nav class="nav flex-column" id="sidebarNav">
+            <a href="#" class="nav-link active" data-target="dashboard"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="#" class="nav-link" data-target="requests"><i class="fas fa-clipboard-list"></i> طلبات المواعيد</a>
+            <a href="#" class="nav-link" data-target="messages"><i class="fas fa-comments"></i> الرسائل</a>
+            <a href="#" class="nav-link" data-target="profile"><i class="fas fa-user-cog"></i> الملف الشخصي</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header px-4">
+            <button class="btn btn-link link-dark d-md-none me-2" id="hamburgerMenu">
+                <i class="fas fa-bars fs-4"></i>
+            </button>
+            
+            <div class="search-bar position-relative flex-grow-1">
+                <i class="fas fa-search position-absolute top-50 translate-middle-y me-3 text-muted"></i>
+                <input type="text" class="form-control border-0 bg-light rounded-pill" placeholder="بحث سريع عن المواعيد أو الطلاب...">
+            </div>
+            
+            <div class="header-icons">
+                <button class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge-notify">5</span>
+                </button>
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle text-decoration-none text-dark d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                        <img src="https://ui-avatars.com/api/?name=Dr+Ali&background=1E2B3A&color=fff" alt="Profile" class="profile-img-small shadow-sm">
+                        <span class="d-none d-md-block fw-semibold">د. علي حسن</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 mt-2">
+                        <li><a class="dropdown-item py-2" href="#"><i class="fas fa-user me-2 text-muted"></i> ملفي الشخصي</a></li>
+                        <li><a class="dropdown-item py-2" href="#"><i class="fas fa-cog me-2 text-muted"></i> الإعدادات</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger py-2" href="javascript:void(0)" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> تسجيل خروج</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content-wrapper p-4">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="page-section active">
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <div>
+                        <h2 class="h4 mb-1 fw-bold">مرحباً بك، دكتور علي! 👋</h2>
+                        <p class="text-muted small mb-0">إليك نظرة سريعة على أداء حسابك اليوم.</p>
+                    </div>
+                    <div class="text-muted small">
+                        <i class="far fa-calendar-alt me-1"></i> 28 مارس 2026
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="custom-card stat-card">
+                            <div class="stat-icon accent bg-accent-light bg-opacity-10 text-accent">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>إجمالي الجلسات</p>
+                                <h4>145</h4>
+                                <div class="stat-trend text-success">
+                                    <i class="fas fa-arrow-up"></i> +12% <span class="text-muted">أسبوعياً</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="custom-card stat-card">
+                            <div class="stat-icon warning bg-warning bg-opacity-10 text-warning">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>طلبات معلقة</p>
+                                <h4>5</h4>
+                                <div class="stat-trend text-muted">
+                                    لا تغيير <span class="text-muted">منذ أمس</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="custom-card stat-card">
+                            <div class="stat-icon primary bg-primary bg-opacity-10 text-primary">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>الأرباح الشهرية</p>
+                                <h4>$3,200</h4>
+                                <div class="stat-trend text-success mb-2">
+                                    <i class="fas fa-arrow-up"></i> +8.5% <span class="text-muted">هذا الشهر</span>
+                                </div>
+                                <p class="small text-muted mb-0 opacity-75 border-top pt-2">إجمالي الأرباح من الجلسات المكتملة</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="custom-card stat-card">
+                            <div class="stat-icon text-success bg-success bg-opacity-10">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>التقييم العام</p>
+                                <h4>4.9</h4>
+                                <div class="stat-trend text-success">
+                                    ممتاز <span class="text-muted">(140 تقييم)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-card">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold">مواعيد اليوم</h5>
+                            <a href="#" class="text-accent text-decoration-none small fw-semibold">عرض الكل <i class="fas fa-chevron-left ms-1 small"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body p-4" id="todayAppointmentsContainer">
+                        <!-- Appointments rendered here -->
+                        <div class="appointment-row d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="https://ui-avatars.com/api/?name=AM&background=00BFA6&color=fff" alt="Student" class="profile-img-small rounded-circle shadow-sm">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">أحمد محمد</h6>
+                                    <span class="text-muted small">استشارة أعمال وتطوير</span>
+                                </div>
+                            </div>
+                            <div class="text-end d-none d-md-block">
+                                <p class="mb-0 fw-semibold text-accent">10:00 صباحاً</p>
+                                <span class="text-muted small">60 دقيقة</span>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-accent btn-sm px-4 rounded-pill action-start-session">
+                                    <span class="spinner-border spinner-border-sm me-1"></span>
+                                    <span>بدء الجلسة</span>
+                                </button>
+                                <button class="btn btn-light btn-sm rounded-circle"><i class="fas fa-ellipsis-v text-muted"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="appointment-row d-flex justify-content-between align-items-center mb-0">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="https://ui-avatars.com/api/?name=SJ&background=1E2B3A&color=fff" alt="Student" class="profile-img-small rounded-circle shadow-sm">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">سارة يوسف</h6>
+                                    <span class="text-muted small">خطة تسويقية</span>
+                                </div>
+                            </div>
+                            <div class="text-end d-none d-md-block">
+                                <p class="mb-0 fw-semibold text-accent">01:30 مساءً</p>
+                                <span class="text-muted small">45 دقيقة</span>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-secondary btn-sm px-4 rounded-pill" disabled>انتظار</button>
+                                <button class="btn btn-light btn-sm rounded-circle"><i class="fas fa-ellipsis-v text-muted"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Requests Section -->
+            <section id="requests" class="page-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 mb-0 fw-bold">طلبات المواعيد</h2>
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-sm dropdown-toggle rounded-pill px-3" data-bs-toggle="dropdown">فلترة حسب الحالة</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">الكل</a></li>
+                            <li><a class="dropdown-item" href="#">في الانتظار</a></li>
+                            <li><a class="dropdown-item" href="#">مقبولة</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="custom-card border-0">
+                    <div class="table-responsive p-3">
+                        <table class="table custom-table align-middle" id="requestsTable">
+                            <thead class="bg-light bg-opacity-50">
+                                <tr>
+                                    <th class="border-0 rounded-start">الطالب</th>
+                                    <th class="border-0">التاريخ والوقت المفضل</th>
+                                    <th class="border-0">النوع</th>
+                                    <th class="border-0">الحالة</th>
+                                    <th class="border-0 rounded-end">الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-bottom">
+                                    <td class="py-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=KH" class="profile-img-small rounded-circle shadow-sm"> 
+                                            <div>
+                                                <div class="fw-bold">خالد حسن</div>
+                                                <small class="text-muted">khaled@example.com</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>20 مايو 2026، 04:00 م</td>
+                                    <td>استشارة قانونية</td>
+                                    <td><span class="badge badge-custom badge-pending">في الانتظار</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-accent rounded-pill px-4 shadow-sm">قبول</button>
+                                            <button class="btn btn-sm btn-outline-danger rounded-pill px-4">رفض</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="https://ui-avatars.com/api/?name=SJ" class="profile-img-small rounded-circle shadow-sm"> 
+                                            <div>
+                                                <div class="fw-bold">سالم جمال</div>
+                                                <small class="text-muted">salem@example.com</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>21 مايو 2026، 11:00 ص</td>
+                                    <td>استشارة أعمال</td>
+                                    <td><span class="badge badge-custom badge-pending">في الانتظار</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-accent rounded-pill px-4 shadow-sm">قبول</button>
+                                            <button class="btn btn-sm btn-outline-danger rounded-pill px-4">رفض</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messages" class="page-section">
+                <h2 class="h4 mb-4 fw-bold">الرسائل والمحادثات</h2>
+                <div class="row h-100 g-4">
+                    <div class="col-md-4">
+                        <div class="custom-card h-100 p-0 shadow-sm border-0">
+                            <div class="p-3 border-bottom">
+                                <input type="text" class="form-control form-control-sm rounded-pill bg-light border-0" placeholder="بحث في المحادثات...">
+                            </div>
+                            <div class="list-group list-group-flush rounded-0 chat-list">
+                                <a href="javascript:void(0)" class="list-group-item list-group-item-action d-flex align-items-center gap-3 p-3 active list-item-active border-0 chat-user-item" data-name="أحمد محمد" data-avatar="AM" data-bg="00BFA6">
+                                    <img src="https://ui-avatars.com/api/?name=AM&background=00BFA6&color=fff" class="profile-img-small rounded-circle shadow-sm">
+                                    <div class="w-100">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h6 class="mb-0 fw-bold">أحمد محمد</h6>
+                                            <small class="text-muted small">الآن</small>
+                                        </div>
+                                        <small class="text-truncate d-block text-muted">أهلاً دكتور، لدي بعض الاستفسارات...</small>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0)" class="list-group-item list-group-item-action d-flex align-items-center gap-3 p-3 border-0 chat-user-item" data-name="سالم جمال" data-avatar="SJ" data-bg="1E2B3A">
+                                    <img src="https://ui-avatars.com/api/?name=SJ&background=1E2B3A&color=fff" class="profile-img-small rounded-circle shadow-sm">
+                                    <div class="w-100">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h6 class="mb-0 fw-bold">سالم جمال</h6>
+                                            <small class="text-muted small">أمس</small>
+                                        </div>
+                                        <small class="text-truncate d-block text-muted">شكراً دكتور، على الجلسة المفيدة جداً!</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="custom-card chat-container mb-0 chat-container-550 border-0 shadow-sm d-flex flex-column">
+                            <div class="card-header bg-white border-bottom d-flex align-items-center justify-content-between py-3 px-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="https://ui-avatars.com/api/?name=AM&background=00BFA6&color=fff" class="profile-img-small rounded-circle chat-header-avatar">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold chat-header-name">أحمد محمد</h6>
+                                        <small class="text-success small"><i class="fas fa-circle me-1" style="font-size: 8px;"></i> نشط الآن</small>
+                                    </div>
+                                </div>
+                                <div class="chat-actions">
+                                    <button class="btn btn-light btn-sm rounded-circle"><i class="fas fa-phone"></i></button>
+                                    <button class="btn btn-light btn-sm rounded-circle"><i class="fas fa-video"></i></button>
+                                    <button class="btn btn-light btn-sm rounded-circle"><i class="fas fa-info-circle"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex flex-column h-100 p-0 overflow-hidden">
+                                <div class="chat-messages p-4 flex-grow-1 overflow-auto d-flex flex-column" id="chatMessages" style="background-color: #f8fafc;">
+                                    <div class="message message-received">
+                                        مرحباً أحمد، كيف يمكنني مساعدتك اليوم بخصوص خطة العمل؟
+                                        <div class="text-end mt-1"><small style="font-size: 10px; opacity: 0.6;">09:41 ص</small></div>
+                                    </div>
+                                    <div class="message message-sent shadow-sm">
+                                        أهلاً دكتور، لدي بعض الاستفسارات بخصوص الجانب المالي في خطة العمل التي ناقشناها بالأمس.
+                                        <div class="text-start mt-1"><small style="font-size: 10px; opacity: 0.7;">09:43 ص</small></div>
+                                    </div>
+                                    <div class="message message-received">
+                                        بالتأكيد، يمكننا مراجعة الأرقام الآن. هل لديك الوثيقة جاهزة؟
+                                        <div class="text-end mt-1"><small style="font-size: 10px; opacity: 0.6;">09:45 ص</small></div>
+                                    </div>
+                                </div>
+                                <div class="chat-footer p-3 bg-white border-top">
+                                    <form class="input-group gap-2" id="chatForm">
+                                        <button type="button" class="btn btn-light rounded-circle"><i class="fas fa-plus text-muted"></i></button>
+                                        <input type="text" class="form-control border-0 bg-light rounded-pill px-4" id="chatInput" placeholder="اكتب رسالتك هنا...">
+                                        <button type="submit" class="btn btn-accent rounded-circle shadow-sm" style="width: 45px; height: 45px;">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="page-section">
+                <h2 class="h4 mb-4 fw-bold">الملف الشخصي والإعدادات</h2>
+                
+                <!-- Profile Summary Card -->
+                <div class="profile-summary-card shadow-lg">
+                    <div class="position-relative">
+                        <img src="https://ui-avatars.com/api/?name=Dr+Ali&background=fff&color=1E2B3A" class="rounded-circle border border-4 border-white border-opacity-25" width="100" height="100">
+                        <button class="btn btn-accent btn-sm rounded-circle position-absolute bottom-0 start-0 border border-3 border-white shadow-sm" style="width: 32px; height: 32px; padding: 0;">
+                            <i class="fas fa-camera" style="font-size: 12px;"></i>
+                        </button>
+                    </div>
+                    <div class="profile-summary-info">
+                        <h4>د. علي حسن</h4>
+                        <p>استشارات أعمال وتطوير استراتيجي • الرياض، السعودية</p>
+                        <div class="d-flex gap-2">
+                            <span class="badge-rating"><i class="fas fa-star text-warning"></i> 4.9 تقييم</span>
+                            <span class="badge-rating"><i class="fas fa-users text-info"></i> 145 طالب</span>
+                            <span class="badge-rating"><i class="fas fa-wallet text-success"></i> $150 / ساعة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-card border-0">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-center justify-content-between mb-5">
+                            <h5 class="fw-bold mb-0">المعلومات الأساسية</h5>
+                            <span class="text-muted small">آخر تحديث: منذ يومين</span>
+                        </div>
+                        
+                        <form id="profileForm">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold text-dark small">الاسم الكامل</label>
+                                    <input type="text" class="form-control rounded-3 py-3 px-3 bg-light border-0" value="د. علي حسن" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold text-dark small">البريد الإلكتروني</label>
+                                    <input type="email" class="form-control rounded-3 py-3 px-3 bg-light border-0" value="ali.h@consultpro.com" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold text-dark small">التخصص الرئيسي</label>
+                                    <select class="form-select rounded-3 py-3 px-3 bg-light border-0" required>
+                                        <option selected>استشارات أعمال وتطوير استراتيجي</option>
+                                        <option>إدارة مشاريع</option>
+                                        <option>تحول رقمي</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold text-dark small">رقم الهاتف</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 bg-light rounded-start-3">+966</span>
+                                        <input type="text" class="form-control border-0 bg-light rounded-end-3 py-3 px-3" value="50XXXXXXX" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label fw-semibold text-dark small">نبذة تعريفية احترافية</label>
+                                    <textarea class="form-control rounded-3 py-3 px-3 bg-light border-0" rows="4" required>خبير في تطوير الأعمال والاستراتيجيات للشركات الناشئة والمؤسسات، بخبرة تزيد عن 10 سنوات في السوق الخليجي. متخصص في إعادة هيكلة الشركات وتطوير خطط النمو المستدام.</textarea>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-5 opacity-5">
+                            
+                            <div class="d-flex justify-content-end gap-3">
+                                <button type="button" class="btn btn-light rounded-pill px-4 py-2 fw-semibold">تجاهل التغييرات</button>
+                                <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 fw-semibold" id="saveProfileBtn">
+                                    <span class="spinner-border spinner-border-sm me-1"></span>
+                                    <span>حفظ البيانات المحدثة</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        // --- HELPERS ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toastEl = document.createElement('div');
+            toastEl.className = `toast align-items-center text-white bg-${type === 'success' ? 'success' : 'danger'} border-0 mb-2`;
+            toastEl.role = 'alert';
+            toastEl.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body"><i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i> ${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            container.appendChild(toastEl);
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+            toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+        }
+
+        function setLoading(btn, isLoading) {
+            if (isLoading) {
+                btn.classList.add('loading');
+                btn.disabled = true;
+                const spinner = btn.querySelector('.spinner-border');
+                if(spinner) spinner.style.display = 'inline-block';
+            } else {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                const spinner = btn.querySelector('.spinner-border');
+                if(spinner) spinner.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            showToast('جاري تسجيل الخروج...', 'success');
+            setTimeout(() => {
+                window.location.href = '../login.html';
+            }, 1000);
+        }
+
+        // --- NAVIGATION & SIDEBAR ---
+        const navLinks = document.querySelectorAll('#sidebarNav .nav-link');
+        const sections = document.querySelectorAll('.page-section');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('show');
+            sidebarOverlay.classList.toggle('show');
+        }
+
+        hamburgerMenu.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('data-target');
+                
+                // Update Nav
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                // Update Sections
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+
+        // --- ACTIONS ---
+        // Start Session
+        document.querySelectorAll('.action-start-session').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLoading(btn, true);
+                setTimeout(() => {
+                    setLoading(btn, false);
+                    showToast('تم بدء الجلسة بنجاح، جاري التحميل...');
+                }, 1500);
+            });
+        });
+
+        // Accept/Reject Requests
+        document.querySelectorAll('#requests .btn-accent, #requests .btn-outline-danger').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isAccept = btn.classList.contains('btn-accent');
+                const row = btn.closest('tr');
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>`;
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    showToast(isAccept ? 'تم قبول الطلب بنجاح ✅' : 'تم رفض الطلب ❌', isAccept ? 'success' : 'danger');
+                    
+                    if(isAccept) {
+                        row.querySelector('.badge').className = 'badge badge-custom badge-success';
+                        row.querySelector('.badge').textContent = 'مقبولة';
+                        row.querySelectorAll('button').forEach(b => b.remove());
+                        const actionCell = row.querySelector('td:last-child');
+                        actionCell.innerHTML = '<span class="text-success small fw-bold"><i class="fas fa-check-circle me-1"></i> جاهز للجلسة</span>';
+                        row.classList.add('bg-success', 'bg-opacity-10');
+                    } else {
+                        row.style.transition = 'all 0.5s ease';
+                        row.style.opacity = '0';
+                        row.style.transform = 'translateX(-20px)';
+                        setTimeout(() => {
+                            row.remove();
+                            checkEmptyStates();
+                        }, 500);
+                    }
+                }, 1200);
+            });
+        });
+
+        // Filtering
+        const filterLinks = document.querySelectorAll('#requests .dropdown-item');
+        filterLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const status = link.textContent.trim();
+                const rows = document.querySelectorAll('#requestsTable tbody tr');
+                
+                rows.forEach(row => {
+                    const badgeText = row.querySelector('.badge').textContent.trim();
+                    if (status === 'الكل' || badgeText === status) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                checkEmptyStates();
+            });
+        });
+
+        // Chat Conversation Switching
+        const chatItems = document.querySelectorAll('.chat-user-item');
+        const chatHeaderName = document.querySelector('.chat-header-name');
+        const chatHeaderAvatar = document.querySelector('.chat-header-avatar');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatItems.forEach(item => {
+            item.addEventListener('click', () => {
+                chatItems.forEach(i => i.classList.remove('active', 'list-item-active'));
+                item.classList.add('active', 'list-item-active');
+                
+                const name = item.getAttribute('data-name');
+                const avatar = item.getAttribute('data-avatar');
+                const bg = item.getAttribute('data-bg');
+                
+                chatHeaderName.textContent = name;
+                chatHeaderAvatar.src = `https://ui-avatars.com/api/?name=${avatar}&background=${bg}&color=fff`;
+                
+                // Simulate loading chat history
+                chatMessages.innerHTML = `
+                    <div class="text-center my-4">
+                        <span class="badge bg-light text-muted fw-normal rounded-pill px-3">لقد بدأت المحادثة مع ${name}</span>
+                    </div>
+                    <div class="message message-received">
+                        مرحباً ${name}، كيف يمكنني مساعدتك اليوم؟
+                        <div class="text-end mt-1"><small style="font-size: 10px; opacity: 0.6;">الآن</small></div>
+                    </div>
+                `;
+            });
+        });
+
+        // Chat Sending
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            const time = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            const msgHtml = `
+                <div class="message message-received">
+                    ${text}
+                    <div class="text-end mt-1"><small style="font-size: 10px; opacity: 0.6;">${time}</small></div>
+                </div>
+            `;
+            chatMessages.insertAdjacentHTML('beforeend', msgHtml);
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            showToast('تم إرسال الرسالة بنجاح ✉️');
+        });
+
+        // Profile Saving
+        const profileForm = document.getElementById('profileForm');
+        const saveBtn = document.getElementById('saveProfileBtn');
+
+        profileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            setLoading(saveBtn, true);
+            setTimeout(() => {
+                setLoading(saveBtn, false);
+                showToast('تم حفظ التغييرات بنجاح ✅');
+            }, 1200);
+        });
+
+        // --- EMPTY STATES ---
+        function checkEmptyStates() {
+            const tableBody = document.querySelector('#requestsTable tbody');
+            const visibleRows = Array.from(tableBody.querySelectorAll('tr')).filter(r => r.style.display !== 'none');
+            
+            if (visibleRows.length === 0) {
+                if (!document.getElementById('emptyRequestsMsg')) {
+                    const msg = document.createElement('tr');
+                    msg.id = 'emptyRequestsMsg';
+                    msg.innerHTML = `<td colspan="5" class="text-center py-5 text-muted"> <i class="fas fa-folder-open d-block mb-3 fs-3 opacity-50"></i> لا توجد بيانات حالياً </td>`;
+                    tableBody.appendChild(msg);
+                }
+            } else {
+                const existing = document.getElementById('emptyRequestsMsg');
+                if (existing) existing.remove();
+            }
+        }
+
+        // Auto-scroll chat on load
+        window.onload = () => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+    </script>
+</body>
+</html>

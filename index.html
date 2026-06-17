@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsultPro - منصة الاستشارات السحابية الرائدة</title>
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h3>
+مستشار<span>+</span></h3>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navContent">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#hero">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">المميزات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-it-works">كيف يعمل؟</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#consultants">المستشارين</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button onclick="handleNavigation('login.html', this)"
+                        class="btn btn-accent px-4 py-2 rounded-pill fw-bold">
+                        <span>تسجيل الدخول</span>
+                        <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">مستشارك <span>الخبير</span> بلمسة زر واحدة</h1>
+                    <p class="hero-desc">احصل على استشارات احترافية في مجالات التقنية، الأعمال، والقانون من نخبة الخبراء
+                        والمتخصصين. نوفر لك تجربة حجز سلسة وجلسات مباشرة عالية الجودة.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button onclick="handleNavigation('login.html', this)"
+                            class="btn btn-accent btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg">
+                            <span>احجز جلستك الأولى</span> <i class="fas fa-arrow-left ms-2"></i>
+                            <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
+                        </button>
+                        <a href="#features" class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill fw-bold">اكتشف
+                            المزيد</a>
+                    </div>
+                    <div class="mt-5 d-flex align-items-center gap-4 text-muted">
+                        <div><i class="fas fa-check-circle text-accent me-2"></i> +500 مستشار</div>
+                        <div><i class="fas fa-check-circle text-accent me-2"></i> ضمان الجودة</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-img d-none d-lg-block text-center">
+                    <div class="position-relative d-inline-block">
+                        <img src="https://ui-avatars.com/api/?name=Hero+Image&background=00BFA6&color=fff&size=512"
+                            alt="Hero" class="rounded-4 shadow-2xl img-fluid"
+                            style="border: 20px solid #fff; max-width: 450px;">
+                        <div
+                            class="position-absolute top-10 start-0 translate-middle bg-white p-3 rounded-3 shadow-lg fade-in">
+                            <i class="fas fa-video text-accent me-2"></i> جلسات مباشرة
+                        </div>
+                        <div
+                            class="position-absolute bottom-10 end-0 translate-middle bg-white p-3 rounded-3 shadow-lg fade-in">
+                            <i class="fas fa-calendar-check text-primary me-2"></i> حجز مرن
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-padding bg-light" id="features">
+        <div class="container text-center">
+            <h2 class="section-title">لماذا تختار ConsultPro؟</h2>
+            <p class="section-subtitle">نحن ندرك قيمة وقتك وخبراتك، لذلك صممنا لك منصة تجمع بين السهولة والاحترافية.</p>
+
+            <div class="row g-4 mt-2">
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <h5 class="fw-bold mb-3">حجز استشارات بسهولة</h5>
+                        <p class="text-muted small">نظام حجز ذكي يسمح لك باختيار الموعد المناسب لك وللمستشار في ثوانٍ
+                            معدودة.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                        <h5 class="fw-bold mb-3">مستشارين متخصصين</h5>
+                        <p class="text-muted small">نخبة من المستشارين المعتمدين والموثوقين في مجالات متنوعة لضمان أفضل
+                            نصيحة.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                        <h5 class="fw-bold mb-3">جلسات مباشرة مرئية</h5>
+                        <p class="text-muted small">تواصل مباشر وجهاً لوجه عبر تقنيات البث المباشر المتطورة داخل المنصة
+                            وبكل خصوصية.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box">
+                        <div class="feature-icon"><i class="fas fa-mobile-screen"></i></div>
+                        <h5 class="fw-bold mb-3">تجربة سلسة ومتكاملة</h5>
+                        <p class="text-muted small">واجهة مستخدم عصرية وسهلة الاستخدام عبر جميع الأجهزة، من الجوال إلى
+                            الحاسوب.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="section-padding" id="how-it-works">
+        <div class="container text-center">
+            <h2 class="section-title">كيف تبدأ رحلتك؟</h2>
+            <p class="section-subtitle">ثلاث خطوات بسيطة تفصلك عن الحصول على أفضل نصيحة مهنية.</p>
+
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h5 class="fw-bold mb-3">أنشئ حسابك</h5>
+                        <p class="text-muted px-lg-4">سجل في المنصة كطالب أو باحث عن نصيحة وقم بإكمال ملفك الشخصي.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h5 class="fw-bold mb-3">اختر مستشارك</h5>
+                        <p class="text-muted px-lg-4">تصفح قائمة المستشارين، اطلع على تقييماتهم وخبراتهم، واختر الأنسب
+                            لك.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h5 class="fw-bold mb-3">احجز جلستك</h5>
+                        <p class="text-muted px-lg-4">اختر الموعد المتاح، قم بإتمام عملية الدفع بأمان، وابدأ جلستك في
+                            الموعد المحدد.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Consultants -->
+    <section class="section-padding bg-light" id="consultants">
+        <div class="container text-center">
+            <h2 class="section-title">نخبة من مستشارينا</h2>
+            <p class="section-subtitle">تعرف على أفضل الخبراء المتاحين لمساعدتك في تحقيق أهدافك.</p>
+
+            <div class="row g-4 text-start">
+                <!-- Consultant 1 -->
+                <div class="col-md-4">
+                    <div class="card consultant-card">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Ahmed&background=1E2B3A&color=fff&size=512"
+                            alt="Consultant">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">د. سارة أحمد</h5>
+                            <p class="text-accent small mb-3">خبير التحول الرقمي</p>
+                            <div class="text-warning mb-3">
+                                <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+                                    class="fas fa-star"></i> <i class="fas fa-star"></i>
+                                <span class="text-muted small ms-2">(120 تقييم)</span>
+                            </div>
+                            <button onclick="handleNavigation('login.html', this)"
+                                class="btn btn-primary w-100 rounded-pill"> <span>احجز الآن</span>
+                                <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Consultant 2 -->
+                <div class="col-md-4">
+                    <div class="card consultant-card">
+                        <img src="https://ui-avatars.com/api/?name=Khaled+Ali&background=00BFA6&color=fff&size=512"
+                            alt="Consultant">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">م. خالد علي</h5>
+                            <p class="text-accent small mb-3">خبير الأمن السيبراني</p>
+                            <div class="text-warning mb-3">
+                                <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+                                    class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i>
+                                <span class="text-muted small ms-2">(95 تقييم)</span>
+                            </div>
+                            <button onclick="handleNavigation('login.html', this)"
+                                class="btn btn-primary w-100 rounded-pill"> <span>احجز الآن</span>
+                                <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Consultant 3 -->
+                <div class="col-md-4">
+                    <div class="card consultant-card">
+                        <img src="https://ui-avatars.com/api/?name=Laila+Hassan&background=1E2B3A&color=fff&size=512"
+                            alt="Consultant">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">د. ليلى حسن</h5>
+                            <p class="text-accent small mb-3">استشارات الأعمال والقانون</p>
+                            <div class="text-warning mb-3">
+                                <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+                                    class="fas fa-star"></i> <i class="fas fa-star"></i>
+                                <span class="text-muted small ms-2">(145 تقييم)</span>
+                            </div>
+                            <button onclick="handleNavigation('login.html', this)"
+                                class="btn btn-primary w-100 rounded-pill"> <span>احجز الآن</span>
+                                <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <a href="consultants.html" class="text-accent text-decoration-none fw-bold">عرض جميع المستشارين <i
+                        class="fas fa-chevron-left ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding container">
+        <div class="cta-section text-center shadow-2xl">
+            <h2 class="hero-title text-white mb-3">هل أنت مستعد لنقل مسيرتك للمستوى التالي؟</h2>
+            <p class="mb-5 px-lg-5 opacity-75">انضم إلى آلاف الطلاب والمهنيين الذين حصلوا على التوجيه الصحيح وبدأوا في
+                تحقيق أحلامهم الآن.</p>
+            <button onclick="handleNavigation('login.html', this)"
+                class="btn btn-accent btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg bg-white text-primary">
+                <span>ابدأ رحلتك الآن</span>
+                <div class="spinner-border spinner-border-sm ms-2" role="status"></div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 footer-logo">
+                    <h3>Consult<span>Pro</span></h3>
+                    <p class="text-muted mt-3 mb-4">المنصة الأولى الموثوقة للاستشارات المهنية والأكاديمية في العالم
+                        العربي. نهدف إلى ربط العقول وتطوير المهارات.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="icon-btn"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="icon-btn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="icon-btn"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2 ms-lg-auto">
+                    <h6 class="fw-bold mb-4">روابط سريعة</h6>
+                    <a href="#hero" class="footer-link">الرئيسية</a>
+                    <a href="login.html" class="footer-link">تسجيل الدخول</a>
+                    <a href="student/register.html" class="footer-link">إنشاء حساب</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold mb-4">الدعم</h6>
+                    <a href="#" class="footer-link">مركز المساعدة</a>
+                    <a href="#" class="footer-link">اتصل بنا</a>
+                    <a href="#" class="footer-link">الخصوصية</a>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-4">تطبيقاتنا</h6>
+                    <p class="text-muted small">قريباً على متجري التطبيقات.</p>
+                    <div class="d-flex flex-column gap-2">
+                        <img src="https://ui-avatars.com/api/?name=AppStore&background=1E2B3A&color=fff" alt="App Store"
+                            height="40" class="rounded-2 opacity-50" style="object-fit: contain;">
+                        <img src="https://ui-avatars.com/api/?name=GooglePlay&background=1E2B3A&color=fff"
+                            alt="Google Play" height="40" class="rounded-2 opacity-50" style="object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5 opacity-5">
+            <div class="text-center text-muted small">
+                © 2026 ConsultPro. جميع الحقوق محفوظة. صمم بكل حب لدعم طموحاتكم.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

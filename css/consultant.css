@@ -1,0 +1,14 @@
+/* Consultant Specific Styles */
+.bg-success-light {
+    background-color: rgba(40,167,69,0.1);
+}
+
+.list-item-active {
+    background-color: rgba(0, 191, 166, 0.05) !important;
+    border-right: 4px solid var(--accent-color) !important;
+    color: var(--text-color) !important;
+}
+
+.chat-container-550 {
+    height: 550px;
+}

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الطالب - منصة الاستشارات التقنية</title>
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3>منصة الاستشارات التقنية</h3>
+            <p class="text-white-50 small mb-0">لوحة الطالب</p>
+        </div>
+        <nav class="nav flex-column h-100 pb-4">
+            <a href="#" class="nav-link active" data-target="dashboard"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="#" class="nav-link" data-target="consultants"><i class="fas fa-laptop-code"></i> تصفح
+                المستشارين</a>
+            <a href="#" class="nav-link" data-target="appointments"><i class="fas fa-calendar-check"></i> مواعيدي</a>
+            <a href="#" class="nav-link" data-target="payments"><i class="fas fa-credit-card"></i> المدفوعات</a>
+            <a href="#" class="nav-link" data-target="messages"><i class="fas fa-comments"></i> الرسائل</a>
+            <a href="#" class="nav-link" data-target="profile"><i class="fas fa-user-cog"></i> الملف الشخصي</a>
+            <div class="mt-auto"></div>
+            <button type="button" class="nav-link text-danger mt-3 bg-transparent border-0 text-start w-100"
+                id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل خروج</button>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="d-flex align-items-center gap-3">
+                <button class="icon-btn d-md-none" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="search-bar position-relative">
+                    <i class="fas fa-search position-absolute top-50 translate-middle-y me-3 text-muted"></i>
+                    <input type="text" id="topSearch" name="topSearch" class="form-control" placeholder="بحث...">
+                </div>
+            </div>
+
+            <div class="header-icons">
+                <!-- Notifications -->
+                <div class="notif-wrapper">
+                    <button class="icon-btn" id="notifBellBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge-notify" id="notificationsBadge">3</span>
+                    </button>
+                    <div class="notification-dropdown" id="notifDropdown">
+                        <div class="p-3 border-bottom fw-bold text-center">الإشعارات</div>
+                        <div class="notif-item">
+                            <div class="stat-icon accent small rounded-circle"
+                                style="width: 35px; height: 35px; font-size: 0.9rem;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 small fw-bold">موعد جديد</h6>
+                                <p class="mb-0 x-small text-muted">تم تأكيد موعدك مع د. علي حسن</p>
+                            </div>
+                        </div>
+                        <div class="notif-item">
+                            <div class="stat-icon warning small rounded-circle"
+                                style="width: 35px; height: 35px; font-size: 0.9rem;">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 small fw-bold">رسالة جديدة</h6>
+                                <p class="mb-0 x-small text-muted">لديك رسالة غير مقروءة من م. ليلى</p>
+                            </div>
+                        </div>
+                        <div class="p-2 text-center border-top">
+                            <a href="#" class="text-accent small text-decoration-none">عرض الكل</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-link text-decoration-none text-dark d-flex align-items-center gap-2"
+                        type="button" id="profileDropdownBtn">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=00BFA6&color=fff" alt="Profile"
+                            class="profile-img-small profile-image-click" id="headerProfileImg">
+                        <span class="d-none d-md-block fw-semibold" id="headerStudentName">أحمد محمد</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content-wrapper">
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="page-section active">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 mb-0 fw-bold">مرحباً بعودتك، أحمد! 👋</h2>
+                    <button type="button" class="btn btn-accent rounded-pill px-4 py-2" id="quickBookBtn">
+                        <span><i class="fas fa-plus me-2"></i> احجز استشارة الآن</span>
+                        <div class="spinner-border spinner-border-sm ms-2" style="display: none;" role="status"></div>
+                    </button>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-3 mb-3 reveal-item">
+                        <div class="custom-card stat-card h-100">
+                            <div class="stat-icon accent">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>المواعيد القادمة</p>
+                                <h4>2</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 reveal-item">
+                        <div class="custom-card stat-card h-100">
+                            <div class="stat-icon primary">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>مواعيد مكتملة</p>
+                                <h4>12</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 reveal-item">
+                        <div class="custom-card stat-card h-100">
+                            <div class="stat-icon warning">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>إجمالي الاستشارات</p>
+                                <h4>15</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 reveal-item">
+                        <div class="custom-card stat-card h-100">
+                            <div class="stat-icon primary">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>رسائل جديدة</p>
+                                <h4>5</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Consultants -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="h5 fw-bold mb-0">أفضل المستشارين الأكاديميين</h3>
+                    <button type="button" class="btn btn-outline-accent rounded-pill px-4 py-1"
+                        id="viewAllConsultantsBtn">عرض الكل</button>
+                </div>
+
+                <div class="row">
+                    <!-- Consultant 1 -->
+                    <div class="col-md-4 mb-4 reveal-item">
+                        <div class="custom-card consultant-card h-100 hover-lift">
+                            <img src="https://ui-avatars.com/api/?name=SA&background=1E2B3A&color=fff" alt="Consultant"
+                                class="consultant-avatar">
+                            <h5 class="fw-bold">د. سارة أحمد</h5>
+                            <p class="text-muted mb-2">ذكاء اصطناعي (AI)</p>
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100 rounded-pill py-2 mt-auto"
+                                onclick="selectConsultant({name:'د. سارة أحمد', specialty:'ai', avatar:'https://ui-avatars.com/api/?name=SA&background=1E2B3A&color=fff', price: 150})">حجز
+                                استشارة</button>
+                        </div>
+                    </div>
+                    <!-- Consultant 2 -->
+                    <div class="col-md-4 mb-4 reveal-item">
+                        <div class="custom-card consultant-card h-100 hover-lift">
+                            <img src="https://ui-avatars.com/api/?name=KM&background=00BFA6&color=fff" alt="Consultant"
+                                class="consultant-avatar">
+                            <h5 class="fw-bold">د. خالد محمود</h5>
+                            <p class="text-muted mb-2">أمن سيبراني (Cyber Security)</p>
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100 rounded-pill py-2 mt-auto"
+                                onclick="selectConsultant({name:'د. خالد محمود', specialty:'cyber', avatar:'https://ui-avatars.com/api/?name=KM&background=00BFA6&color=fff', price: 180})">حجز
+                                استشارة</button>
+                        </div>
+                    </div>
+                    <!-- Consultant 3 -->
+                    <div class="col-md-4 mb-4 reveal-item">
+                        <div class="custom-card consultant-card h-100 hover-lift">
+                            <img src="https://ui-avatars.com/api/?name=FA&background=FFC107&color=fff" alt="Consultant"
+                                class="consultant-avatar">
+                            <h5 class="fw-bold">م. فهد عبدالله</h5>
+                            <p class="text-muted mb-2">تقنية معلومات (IT)</p>
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100 rounded-pill py-2 mt-auto"
+                                onclick="selectConsultant({name:'م. فهد عبدالله', specialty:'it', avatar:'https://ui-avatars.com/api/?name=FA&background=FFC107&color=fff', price: 120})">حجز
+                                استشارة</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-card mt-4">
+                    <div class="card-header border-bottom-0 pb-0 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold">أقرب المواعيد</h5>
+                        <button type="button" class="btn btn-sm btn-outline-accent rounded-pill px-3"
+                            id="viewAllAppointmentsBtn">عرض الكل</button>
+                    </div>
+                    <div class="card-body">
+                        <!-- Upcoming Appointment Item -->
+                        <div id="upcomingAppContainer">
+                            <!-- Rendered by JS -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="text-center py-5 d-none" id="upcomingEmptyState">
+                            <div class="mb-3">
+                                <i class="fas fa-calendar-day fa-3x text-light"></i>
+                            </div>
+                            <h6 class="fw-bold">لا يوجد لديك مواعيد حالياً</h6>
+                            <p class="text-muted small mb-4">ابدأ بحجز استشارة مع أحد خبرائنا المتميزين</p>
+                            <button type="button" class="btn btn-accent rounded-pill px-4"
+                                onclick="document.querySelector('[data-target=\'consultants\']').click()">احجز
+                                الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Browse Consultants Section -->
+            <section id="consultants" class="page-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 fw-bold">تصفح المستشارين الأكاديميين</h2>
+                    <div class="d-flex gap-2">
+                        <select id="consultantsFilter" name="consultantsFilter"
+                            class="form-select w-auto rounded-pill px-4">
+                            <option value="all">الكل</option>
+                            <option value="ai">ذكاء اصطناعي</option>
+                            <option value="cyber">أمن سيبراني</option>
+                            <option value="it">تقنية معلومات</option>
+                            <option value="data">علوم بيانات</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row" id="consultantsCardsContainer">
+                    <!-- Consultant cards will be rendered here dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- My Appointments Section -->
+            <section id="appointments" class="page-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 fw-bold">مواعيدي</h2>
+                    <button type="button" class="btn btn-accent rounded-pill px-4 py-2" id="newAppointmentBtn"><i
+                            class="fas fa-plus me-2"></i> حجز موعد جديد</button>
+                </div>
+
+                <div class="custom-card">
+                    <div class="table-responsive">
+                        <table class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الموعد</th>
+                                    <th>الدكتور / المستشار الأكاديمي</th>
+                                    <th>التاريخ</th>
+                                    <th>الوقت</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentsList">
+                                <!-- Rendered by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payments Section -->
+            <section id="payments" class="page-section">
+                <h2 class="h4 mb-4 fw-bold">طرق الدفع والمدفوعات</h2>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-card stat-card mb-4" style="width: fit-content; min-width: 250px;">
+                            <div class="stat-icon warning">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p>إجمالي المدفوعات</p>
+                                <h4 class="text-accent">$520.00</h4>
+                            </div>
+                        </div>
+
+                        <div class="custom-card">
+                            <div class="card-header">سجل المدفوعات</div>
+                            <div class="table-responsive">
+                                <table class="table custom-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>الرقم</th>
+                                            <th>المبلغ</th>
+                                            <th>التاريخ</th>
+                                            <th>الحالة</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#INV-001</td>
+                                            <td>$150.00</td>
+                                            <td>10 أبريل 2026</td>
+                                            <td><span class="badge badge-custom badge-success">ناجح</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#INV-002</td>
+                                            <td>$220.00</td>
+                                            <td>15 مايو 2026</td>
+                                            <td><span class="badge badge-custom badge-success">ناجح</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#INV-003</td>
+                                            <td>$150.00</td>
+                                            <td>20 مايو 2026</td>
+                                            <td><span class="badge badge-custom badge-success">ناجح</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messages" class="page-section">
+                <h2 class="h4 mb-4 fw-bold">الرسائل</h2>
+                <div class="custom-card chat-container">
+                    <div class="card-header d-flex align-items-center gap-3">
+                        <img src="https://ui-avatars.com/api/?name=Dr+Ali" class="profile-img-small">
+                        <h6 class="mb-0">د. علي حسن</h6>
+                    </div>
+                    <div class="card-body d-flex flex-column chat-body-400">
+                        <div class="chat-messages flex-grow-1 overflow-auto bg-light rounded p-3 mb-3 position-relative"
+                            id="chatWindow">
+                            <!-- Empty State -->
+                            <div class="text-center py-5 d-none" id="messagesEmptyState">
+                                <div class="mb-3">
+                                    <i class="fas fa-comments fa-3x text-light"></i>
+                                </div>
+                                <h6 class="fw-bold">لا يوجد رسائل بعد</h6>
+                                <p class="text-muted small">ابدأ المحادثة مع المستشار الآن</p>
+                            </div>
+
+                            <div class="message message-received">
+                                مرحباً أحمد، كيف يمكنني مساعدتك اليوم؟
+                            </div>
+                            <div class="message message-sent">
+                                أهلاً دكتور، لدي بعض الاستفسارات بخصوص خطة العمل.
+                            </div>
+                        </div>
+                        <div class="mt-auto position-relative border-top pt-3">
+                            <input type="text" id="chatInputMessage" name="chatInputMessage"
+                                class="form-control rounded-pill pe-5 py-2" placeholder="اكتب رسالتك...">
+                            <button type="button"
+                                class="icon-btn position-absolute top-50 translate-middle-y me-3 end-0 chat-send-btn">
+                                <i class="fas fa-paper-plane text-accent"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="page-section">
+                <h2 class="h4 mb-4 fw-bold">الملف الشخصي</h2>
+                <div class="custom-card">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center mb-4 pb-4 border-bottom">
+                            <div class="col-auto position-relative">
+                                <img src="https://ui-avatars.com/api/?name=Student&background=00BFA6&color=fff"
+                                    class="rounded-circle profile-image-click" width="100" height="100"
+                                    id="sectionProfileImg" style="cursor: pointer;">
+                                <div class="position-absolute bottom-0 end-0 bg-accent text-white rounded-circle p-2 shadow-sm"
+                                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-camera small"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <p class="mb-1 fw-bold">صورة البروفايل</p>
+                                <p class="text-muted small mb-3">انقر على الصورة لتغييرها</p>
+                                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-4 py-2"
+                                    onclick="document.getElementById('profileImageInput').click()">تغيير الصورة</button>
+                            </div>
+                        </div>
+                        <form id="studentProfileForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="profileName" class="form-label text-muted small">الاسم الكامل</label>
+                                    <input type="text" id="profileName" name="profileName"
+                                        class="form-control rounded-3 py-2" value="أحمد محمد">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="profileEmail" class="form-label text-muted small">البريد
+                                        الإلكتروني</label>
+                                    <input type="email" id="profileEmail" name="profileEmail"
+                                        class="form-control rounded-3 py-2" value="ahmed@example.com">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="profilePhone" class="form-label text-muted small">رقم الهاتف</label>
+                                    <input type="tel" id="profilePhone" name="profilePhone"
+                                        class="form-control rounded-3 py-2" value="+966 50 000 0000">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="profilePassword" class="form-label text-muted small">كلمة المرور
+                                        الجديدة</label>
+                                    <input type="password" id="profilePassword" name="profilePassword"
+                                        class="form-control rounded-3 py-2"
+                                        placeholder="اتركها فارغة للحفاظ على الحالية">
+                                </div>
+                            </div>
+                            <div class="mt-2 text-end">
+                                <button type="submit" class="btn btn-primary rounded-pill px-5 py-2">حفظ
+                                    التغييرات</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Hidden File Input for Profile Image -->
+    <input type="file" id="profileImageInput" class="d-none" accept="image/*">
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        // --- DATA ---
+        const consultantsData = [
+            { id: 1, name: 'د. يوسف رامي', specialty: 'ai', title: 'دكتور في الذكاء الاصطناعي', rating: 4.9, sessions: 145, avatar: 'https://ui-avatars.com/api/?name=YR&background=1E2B3A&color=fff', price: 150 },
+            { id: 2, name: 'د. خالد علي', specialty: 'cyber', title: 'خبير أمن سيبراني', rating: 4.8, sessions: 98, avatar: 'https://ui-avatars.com/api/?name=KA&background=00BFA6&color=fff', price: 180 },
+            { id: 3, name: ' م. ليلى حسن', specialty: 'it', title: 'مهندسة برمجيات', rating: 5.0, sessions: 156, avatar: 'https://ui-avatars.com/api/?name=LH&background=FFC107&color=fff', price: 120 },
+            { id: 4, name: 'أ. نورة سعد', specialty: 'data', title: 'محللة بيانات', rating: 4.7, sessions: 112, avatar: 'https://ui-avatars.com/api/?name=NS&background=dc3545&color=fff', price: 130 }
+        ];
+
+        // --- SELECTION HELPER ---
+        function selectConsultant(data) {
+            localStorage.setItem("selectedConsultant", JSON.stringify(data));
+            window.location.href = "../booking.html";
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderConsultants(filter = 'all') {
+            const container = document.getElementById('consultantsCardsContainer');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const filtered = filter === 'all'
+                ? consultantsData
+                : consultantsData.filter(c => c.specialty === filter);
+
+            const specMap = { ai: 'ذكاء اصطناعي', cyber: 'أمن سيبراني', it: 'تقنية معلومات', data: 'علوم بيانات' };
+
+            filtered.forEach(c => {
+                const card = `
+                    <div class="col-md-4 mb-4">
+                        <div class="custom-card consultant-card h-100" data-id="${c.id}">
+                            <img src="${c.avatar}" alt="${c.name}" class="consultant-avatar">
+                            <h5 class="fw-bold">${c.name}</h5>
+                            <p class="text-muted mb-2">${specMap[c.specialty]}</p>
+                            <div class="mb-3 text-warning">
+                                ${Array(5).fill().map((_, i) => `<i class="fa${i < Math.floor(c.rating) ? 's' : 'r'} fa-star"></i>`).join('')}
+                                <span class="text-dark ms-1 small">${c.rating} (${c.sessions} جلسة)</span>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100 py-2" onclick='selectConsultant(${JSON.stringify(c)})'>احجز استشارة</button>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+        }
+
+        function renderAppointments() {
+            const list = document.getElementById('appointmentsList');
+            const upcomingContainer = document.getElementById('upcomingAppContainer');
+            const emptyState = document.getElementById('upcomingEmptyState');
+            if (!list) return;
+
+            const apps = JSON.parse(localStorage.getItem('appointments') || '[]');
+            list.innerHTML = '';
+            upcomingContainer.innerHTML = '';
+
+            // Update stats
+            document.querySelector('.stat-card:nth-child(1) h4').textContent = apps.filter(a => a.status === 'upcoming').length;
+            document.querySelector('.stat-card:nth-child(2) h4').textContent = apps.filter(a => a.status === 'completed').length;
+            document.querySelector('.stat-card:nth-child(3) h4').textContent = apps.length;
+
+            if (apps.length === 0) {
+                list.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">لا يوجد مواعيد مسجلة</td></tr>';
+                emptyState.classList.remove('d-none');
+                return;
+            }
+
+            emptyState.classList.add('d-none');
+
+            // Sort by date/time (simplified)
+            apps.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            apps.forEach((app, index) => {
+                // Table Row
+                const statusClasses = { upcoming: 'badge-primary', completed: 'badge-success', cancelled: 'badge-danger' };
+                const statusText = { upcoming: 'قادم', completed: 'مكتمل', cancelled: 'ملغي' };
+
+                const tr = `
+                    <tr>
+                        <td>${app.id}</td>
+                        <td><div class="d-flex align-items-center gap-2"><img src="${app.avatar || 'https://ui-avatars.com/api/?name=' + app.consultant}" class="profile-img-small">${app.consultant}</div></td>
+                        <td>${app.dateStr || app.date}</td>
+                        <td>${app.time}</td>
+                        <td><span class="badge badge-custom ${statusClasses[app.status]}">${statusText[app.status]}</span></td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                ${app.status === 'upcoming' ? `
+                                    <button class="btn btn-sm btn-outline-accent rounded-pill px-3" onclick="alert('انضمام للجلسة...')">انضمام</button>
+                                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="cancelAppointment(${index})">إلغاء</button>
+                                ` : '<span class="text-muted small">منتهي</span>'}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                list.insertAdjacentHTML('beforeend', tr);
+
+                // Featured Upcoming (Only the closest one)
+                if (app.status === 'upcoming' && upcomingContainer.children.length === 0) {
+                    const feat = `
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="${app.avatar}" class="profile-img-small rounded-2">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">${app.consultant}</h6>
+                                    <span class="text-muted small">${app.specialty || 'استشارة تقنية'}</span>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <p class="mb-0 fw-semibold text-accent">${app.dateStr || app.date}</p>
+                                <span class="text-muted small">${app.time}</span>
+                            </div>
+                            <button class="btn btn-accent btn-sm px-4 rounded-pill" onclick="alert('بدء الجلسة...')">انضمام للجلسة</button>
+                        </div>
+                    `;
+                    upcomingContainer.innerHTML = feat;
+                }
+            });
+        }
+
+        function cancelAppointment(index) {
+            if (!confirm('هل أنت متأكد من إلغاء الموعد؟')) return;
+            const apps = JSON.parse(localStorage.getItem('appointments') || '[]');
+            apps[index].status = 'cancelled';
+            localStorage.setItem('appointments', JSON.stringify(apps));
+            renderAppointments();
+        }
+
+        // --- SIDEBAR LOGIC ---
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const toggle = document.getElementById('sidebarToggle');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('show');
+        }
+
+        if (toggle) toggle.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+        // --- NOTIFICATION LOGIC ---
+        const notifBtn = document.getElementById('notifBellBtn');
+        const notifDropdown = document.getElementById('notifDropdown');
+
+        if (notifBtn && notifDropdown) {
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifDropdown.classList.toggle('show');
+            });
+        }
+
+        // --- PROFILE IMAGE PREVIEW ---
+        const profileInput = document.getElementById('profileImageInput');
+        const profileImgs = document.querySelectorAll('.profile-image-click');
+
+        profileImgs.forEach(img => {
+            img.addEventListener('click', () => profileInput.click());
+        });
+
+        if (profileInput) {
+            profileInput.addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const headerImg = document.getElementById('headerProfileImg');
+                        const sectionImg = document.getElementById('sectionProfileImg');
+                        if (headerImg) headerImg.src = e.target.result;
+                        if (sectionImg) sectionImg.src = e.target.result;
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        }
+
+        // Quick Book Button Loading
+        const quickBookBtn = document.getElementById('quickBookBtn');
+        if (quickBookBtn) {
+            quickBookBtn.addEventListener('click', () => {
+                const spinner = quickBookBtn.querySelector('.spinner-border');
+                const span = quickBookBtn.querySelector('span');
+                quickBookBtn.disabled = true;
+                spinner.style.display = 'inline-block';
+                setTimeout(() => {
+                    window.location.href = '../booking.html';
+                }, 800);
+            });
+        }
+
+        // --- CLICK OUTSIDE TO CLOSE ---
+        window.addEventListener('click', (e) => {
+            if (notifDropdown && !notifBtn.contains(e.target) && !notifDropdown.contains(e.target)) {
+                notifDropdown.classList.remove('show');
+            }
+        });
+
+        // --- AUTO-SCROLL CHAT ---
+        function scrollToBottom() {
+            const chatWindow = document.getElementById('chatWindow');
+            if (chatWindow) {
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+        }
+
+        // --- NAVIGATION & INIT ---
+        window.onload = () => {
+            renderConsultants();
+            renderAppointments();
+            scrollToBottom();
+
+            // Re-render when filter changes
+            const filterEl = document.getElementById('consultantsFilter');
+            if (filterEl) {
+                filterEl.addEventListener('change', (e) => {
+                    renderConsultants(e.target.value);
+                });
+            }
+        };
+
+        // Handle sidebar nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                // Toggle active section
+                const target = link.getAttribute('data-target');
+                document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+                const targetSection = document.getElementById(target);
+                if (targetSection) targetSection.classList.add('active');
+
+                // Update nav links active state
+                document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+                link.classList.add('active');
+
+                // Scroll if messages
+                if (target === 'messages') {
+                    setTimeout(scrollToBottom, 50);
+                }
+
+                // Close sidebar on mobile
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

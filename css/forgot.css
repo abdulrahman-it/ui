@@ -1,0 +1,295 @@
+     /* ──── Step Indicator ──── */
+     .step-indicator {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         gap: 8px;
+         margin-bottom: 30px;
+     }
+
+     .step-dot {
+         width: 10px;
+         height: 10px;
+         border-radius: 50%;
+         background-color: var(--input-border);
+         transition: all 0.4s ease;
+     }
+
+     .step-dot.active {
+         background-color: var(--accent-color);
+         width: 28px;
+         border-radius: 5px;
+     }
+
+     .step-dot.done {
+         background-color: var(--accent-color);
+         opacity: 0.4;
+     }
+
+     /* ──── Step Panels ──── */
+     .fp-step {
+         display: none;
+         animation: fadeIn 0.45s ease forwards;
+     }
+
+     .fp-step.active {
+         display: block;
+     }
+
+     /* ──── OTP Boxes ──── */
+     .otp-group {
+         display: flex;
+         justify-content: center;
+         gap: 14px;
+         margin-bottom: 22px;
+         direction: ltr;
+     }
+
+     .otp-box {
+         width: 62px;
+         height: 62px;
+         border: 2px solid var(--input-border);
+         border-radius: 14px;
+         font-size: 1.6rem;
+         font-weight: 700;
+         text-align: center;
+         color: var(--text-color);
+         background-color: var(--input-bg);
+         transition: all 0.3s ease;
+         outline: none;
+         caret-color: var(--accent-color);
+     }
+
+     .otp-box:focus {
+         border-color: var(--accent-color);
+         box-shadow: 0 0 0 4px var(--focus-ring);
+         transform: translateY(-2px);
+         background-color: #fff;
+     }
+
+     .otp-box.filled {
+         border-color: var(--accent-color);
+         color: var(--accent-color);
+     }
+
+     /* ──── OTP Info Banner ──── */
+     .otp-info-banner {
+         background: rgba(0, 191, 166, 0.08);
+         border: 1px solid rgba(0, 191, 166, 0.25);
+         border-radius: 12px;
+         padding: 12px 16px;
+         font-size: 0.9rem;
+         color: var(--accent-color);
+         margin-bottom: 22px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+     }
+
+     /* ──── Password toggle icon ──── */
+     .toggle-password {
+         position: absolute;
+         left: 18px;
+         top: 50%;
+         transform: translateY(-50%);
+         color: #a0aec0;
+         font-size: 1.05rem;
+         cursor: pointer;
+         pointer-events: all;
+         transition: color 0.3s ease;
+         z-index: 2;
+     }
+
+     .toggle-password:hover {
+         color: var(--accent-color);
+     }
+
+     /* ──── Success State ──── */
+     .success-state {
+         padding: 10px 0 5px;
+         text-align: center;
+     }
+
+     .success-icon-wrapper {
+         margin-bottom: 20px;
+     }
+
+     /* ──── Toast ──── */
+     .toast-container-custom {
+         position: fixed;
+         bottom: 24px;
+         right: 24px;
+         z-index: 9999;
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         pointer-events: none;
+     }
+
+     .toast-item {
+         background: #1E2B3A;
+         color: #fff;
+         padding: 14px 20px;
+         border-radius: 12px;
+         font-size: 0.92rem;
+         font-weight: 500;
+         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         animation: toastIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+         pointer-events: all;
+         min-width: 260px;
+         max-width: 340px;
+     }
+
+     .toast-item.success {
+         border-right: 4px solid var(--accent-color);
+     }
+
+     .toast-item.error {
+         border-right: 4px solid #ef4444;
+     }
+
+     .toast-item.info {
+         border-right: 4px solid #3b82f6;
+     }
+
+     .toast-item i {
+         font-size: 1.1rem;
+     }
+
+     .toast-item.success i {
+         color: var(--accent-color);
+     }
+
+     .toast-item.error i {
+         color: #ef4444;
+     }
+
+     .toast-item.info i {
+         color: #3b82f6;
+     }
+
+     @keyframes toastIn {
+         from {
+             opacity: 0;
+             transform: translateX(40px);
+         }
+
+         to {
+             opacity: 1;
+             transform: translateX(0);
+         }
+     }
+
+     @keyframes toastOut {
+         from {
+             opacity: 1;
+             transform: translateX(0);
+         }
+
+         to {
+             opacity: 0;
+             transform: translateX(40px);
+         }
+     }
+
+     /* ──── Loading spinner inside button ──── */
+     .btn-spinner {
+         width: 18px;
+         height: 18px;
+         border: 2.5px solid rgba(255, 255, 255, 0.4);
+         border-top-color: #fff;
+         border-radius: 50%;
+         display: inline-block;
+         animation: spin 0.7s linear infinite;
+         vertical-align: middle;
+         margin-left: 8px;
+     }
+
+     @keyframes spin {
+         to {
+             transform: rotate(360deg);
+         }
+     }
+
+     /* ──── Back link ──── */
+     .back-link {
+         display: inline-flex;
+         align-items: center;
+         gap: 6px;
+         font-size: 0.9rem;
+         color: var(--text-muted);
+         text-decoration: none;
+         margin-bottom: 18px;
+         transition: color 0.3s ease;
+     }
+
+     .back-link:hover {
+         color: var(--primary-color);
+     }
+
+     /* ──── Dark Mode ──── */
+     body.dark-mode {
+         background: #121212;
+     }
+
+     body.dark-mode .auth-wrapper {
+         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+     }
+
+     body.dark-mode .auth-card {
+         background-color: #1e293b;
+         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+     }
+
+     body.dark-mode .auth-title {
+         color: #f8fafc;
+     }
+
+     body.dark-mode .auth-subtitle,
+     body.dark-mode .form-label,
+     body.dark-mode .text-muted {
+         color: #94a3b8 !important;
+     }
+
+     body.dark-mode .form-control {
+         background-color: #0f172a;
+         border-color: #334155;
+         color: #f8fafc;
+     }
+
+     body.dark-mode .form-control:focus {
+         background-color: #1e293b;
+         border-color: var(--accent-color);
+     }
+
+     body.dark-mode .otp-box {
+         background-color: #0f172a;
+         border-color: #334155;
+         color: #f8fafc;
+     }
+
+     body.dark-mode .otp-box:focus {
+         background-color: #1e293b;
+     }
+
+     body.dark-mode .step-dot {
+         background-color: #334155;
+     }
+
+     body.dark-mode .otp-info-banner {
+         background: rgba(0, 191, 166, 0.06);
+     }
+
+     body.dark-mode .back-link {
+         color: #94a3b8;
+     }
+
+     body.dark-mode #darkModeToggle,
+     body.dark-mode #langToggle {
+         background-color: #1e293b !important;
+         color: #f8fafc !important;
+         border: 1px solid #334155 !important;
+     }

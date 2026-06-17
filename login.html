@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة الاستشارات التقنية</title>
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="auth-wrapper" style="position: relative;">
+        <!-- Top Bar Overlay -->
+        <div style="position: absolute; top: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10;"
+            dir="ltr">
+            <button type="button" class="btn shadow-sm bg-white" id="darkModeToggle"
+                style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-color); border: 1px solid #e2e8f0; transition: all 0.3s ease;">
+                <i class="fa-solid fa-moon fs-5"></i>
+            </button>
+            <button type="button" class="btn shadow-sm bg-white fw-bold" id="langToggle"
+                style="padding: 0 15px; height: 45px; border-radius: 50px; color: var(--primary-color); border: 1px solid #e2e8f0; transition: all 0.3s ease;">
+                EN
+            </button>
+        </div>
+        <div class="auth-card">
+            <!-- Logo & Titles -->
+            <div class="logo-section mb-5">
+                <div class="logo-icon mb-4">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h1 class="auth-title fw-bold mb-2">منصة الاستشارات</h1>
+                <p class="auth-subtitle text-muted">سجل دخولك الآن للوصول إلى لوحة التحكم الخاصة بك</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group mb-4">
+                    <label for="loginEmail" class="form-label">البريد الإلكتروني أو رقم الهاتف</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="loginEmail" class="form-control"
+                            placeholder="أدخل بريدك الإلكتروني أو رقم هاتفك" required>
+                        <i class="fa-regular fa-user input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="loginPassword" class="form-label">كلمة المرور</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="loginPassword" class="form-control" placeholder="أدخل كلمة المرور"
+                            required>
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4" dir="rtl">
+                    <div class="form-check m-0 d-flex align-items-center gap-2">
+                        <input class="form-check-input m-0" type="checkbox" id="rememberMe" style="cursor: pointer;">
+                        <label class="form-check-label text-muted fs-6" for="rememberMe" style="cursor: pointer;">
+                            تذكرني
+                        </label>
+                    </div>
+                    <a href="forgot-password.html" class="auth-link text-decoration-none"
+                        style="font-size: 0.9rem;">نسيت كلمة المرور؟</a>
+                </div>
+
+                <button type="submit" class="btn-primary mb-4" id="loginBtn">
+                    <span class="btn-text">تسجيل الدخول</span>
+                    <div class="spinner-border spinner-border-sm" style="display: none;" role="status"></div>
+                </button>
+
+                <!-- Divider OR -->
+                <div class="d-flex align-items-center mb-3">
+                    <hr class="flex-grow-1 m-0" style="border-color: #cbd5e1; opacity: 1;">
+                    <span class="mx-3 text-muted" style="font-size: 0.9rem;">أو</span>
+                    <hr class="flex-grow-1 m-0" style="border-color: #cbd5e1; opacity: 1;">
+                </div>
+
+                <!-- Social Logins -->
+                <div class="d-flex flex-column gap-3 mb-4">
+                    <button type="button"
+                        class="btn btn-light d-flex align-items-center justify-content-center gap-2 social-login-btn"
+                        style="border-radius: 50px; padding: 14px; border: 2px solid var(--input-border); color: var(--text-color); font-weight: 600; background: #fff; transition: all 0.3s ease;">
+                        <i class="fa-brands fa-google text-danger fs-5"></i>
+                        المتابعة عبر Google
+                    </button>
+                    <button type="button"
+                        class="btn btn-light d-flex align-items-center justify-content-center gap-2 social-login-btn"
+                        style="border-radius: 50px; padding: 14px; border: 2px solid var(--input-border); color: var(--text-color); font-weight: 600; background: #fff; transition: all 0.3s ease;">
+                        <i class="fa-brands fa-apple fs-5"></i>
+                        المتابعة عبر Apple
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <span>ليس لديك حساب؟</span>
+                    <a href="register.html" class="auth-link">إنشاء حساب جديد</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JS Form Logic -->
+    <script>
+        // Password Visibility Toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('loginPassword');
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                // Toggle icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const spinner = btn.querySelector('.spinner-border');
+            const btnText = btn.querySelector('.btn-text');
+
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+
+            setTimeout(() => {
+                window.location.href = 'student/dashboard.html';
+            }, 1000);
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

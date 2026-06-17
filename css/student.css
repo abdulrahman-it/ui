@@ -1,0 +1,55 @@
+/* Student Specific Styles */
+.consultant-card {
+    text-align: center;
+    padding: 24px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.consultant-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 191, 166, 0.2);
+}
+
+.consultant-card:active {
+    transform: scale(0.98) translateY(-4px);
+}
+
+.consultant-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    border: 3px solid rgba(0, 191, 166, 0.1);
+    transition: all 0.3s ease;
+}
+
+.consultant-card:hover .consultant-avatar {
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+/* Global Button & Card Refinements for Student Dashboard */
+.btn {
+    border-radius: 50px !important;
+    /* Force rounded-pill */
+    transition: all 0.2s ease-in-out !important;
+}
+
+.custom-card {
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+}
+
+.custom-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Badge Enhancements */
+.badge-primary {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+}

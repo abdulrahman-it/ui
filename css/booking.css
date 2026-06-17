@@ -1,0 +1,467 @@
+.booking-page {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+/* ===== Sticky Header ===== */
+.booking-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--card-bg);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 0 30px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.booking-header h1 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: 50px;
+    border: 1.5px solid var(--input-border);
+    background: transparent;
+    transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* ===== Layout Grid ===== */
+.booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 24px 40px;
+}
+
+@media (max-width: 900px) {
+    .booking-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Section Title ===== */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.section-title .icon-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(0, 191, 166, 0.12);
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* ===== Consultant Profile Card ===== */
+.consultant-profile {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.consultant-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 16px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.consultant-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.consultant-specialty {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.consultant-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+}
+
+.stars {
+    color: #ffc107;
+}
+
+.consultant-price-tag {
+    margin-right: auto;
+    text-align: center;
+    background: rgba(0, 191, 166, 0.08);
+    border: 1.5px solid rgba(0, 191, 166, 0.2);
+    border-radius: 14px;
+    padding: 10px 20px;
+    min-width: 90px;
+    flex-shrink: 0;
+}
+
+.consultant-price-tag .price-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.consultant-price-tag .price-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-color);
+}
+
+.consultant-price-tag .price-unit {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ===== Date Input ===== */
+.field-input {
+    width: 100%;
+    padding: 13px 18px;
+    background: var(--input-bg);
+    border: 2px solid var(--input-border);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.field-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px var(--focus-ring);
+    background: #fff;
+}
+
+/* ===== Time Slots ===== */
+.time-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 12px 10px;
+    border-radius: 12px;
+    border: 2px solid var(--input-border);
+    background: var(--input-bg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.time-slot .slot-period {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.time-slot:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(0, 191, 166, 0.05);
+}
+
+.time-slot.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 191, 166, 0.3);
+}
+
+.time-slot.active .slot-period {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.time-slot.unavailable {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ===== Textarea ===== */
+.field-textarea {
+    width: 100%;
+    padding: 13px 18px;
+    background: var(--input-bg);
+    border: 2px solid var(--input-border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    outline: none;
+    resize: vertical;
+}
+
+.field-textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px var(--focus-ring);
+    background: #fff;
+}
+
+/* ===== Sidebar Summary Card ===== */
+.summary-card .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--input-border);
+    font-size: 0.9rem;
+}
+
+.summary-card .summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-card .summary-label {
+    color: var(--text-muted);
+}
+
+.summary-card .summary-value {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.summary-card .summary-value.accent {
+    color: var(--accent-color);
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    padding: 16px;
+    background: rgba(0, 191, 166, 0.06);
+    border-radius: 12px;
+    border: 1.5px solid rgba(0, 191, 166, 0.2);
+}
+
+.summary-total .total-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.summary-total .total-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent-color);
+}
+
+/* ===== Confirm Button ===== */
+.btn-confirm {
+    width: 100%;
+    padding: 15px;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 8px 20px rgba(0, 191, 166, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 6px;
+}
+
+.btn-confirm:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 191, 166, 0.4);
+}
+
+.btn-confirm:active {
+    transform: translateY(0);
+}
+
+/* ===== Trust Badges ===== */
+.trust-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.trust-badge i {
+    color: var(--accent-color);
+    font-size: 0.95rem;
+    width: 16px;
+}
+
+/* ===== Form Label ===== */
+.field-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+/* ===== Session Type Buttons ===== */
+.session-type-group {
+    display: flex;
+    gap: 10px;
+}
+
+.session-type-btn {
+    flex: 1;
+    padding: 12px 10px;
+    border: 2px solid var(--input-border);
+    border-radius: 12px;
+    background: var(--input-bg);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.session-type-btn .stype-icon {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: var(--text-muted);
+    transition: color 0.2s;
+}
+
+.session-type-btn .stype-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: color 0.2s;
+}
+
+.session-type-btn:hover {
+    border-color: var(--accent-color);
+}
+
+.session-type-btn:hover .stype-icon,
+.session-type-btn:hover .stype-label {
+    color: var(--accent-color);
+}
+
+.session-type-btn.active {
+    border-color: var(--accent-color);
+    background: rgba(0, 191, 166, 0.06);
+}
+
+.session-type-btn.active .stype-icon,
+.session-type-btn.active .stype-label {
+    color: var(--accent-color);
+}
+
+/* ===== File Upload ===== */
+.file-upload-wrapper {
+    position: relative;
+    border: 2px dashed var(--input-border);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    background: var(--input-bg);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.file-upload-wrapper:hover {
+    border-color: var(--accent-color);
+    background: rgba(0, 191, 166, 0.03);
+}
+
+.file-upload-wrapper i {
+    font-size: 2rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+#fileInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-preview {
+    display: none;
+    margin-top: 15px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--input-border);
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.file-info {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
