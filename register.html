@@ -26,7 +26,7 @@
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <h1 class="auth-title">منصة الاستشارات</h1>
-                    <p class="auth-subtitle">إنشاء حساب جديد للانضمام لمنصة الاستشارات الأكاديمية</p>
+                    <p class="auth-subtitle" id="registerSubtitle">إنشاء حساب جديد للانضمام لمنصة الاستشارات الأكاديمية</p>
                 </div>
 
                 <div class="form-group">
@@ -51,16 +51,99 @@
                     </div>
                 </div>
 
-                <div class="form-group text-start" dir="rtl">
-                    <label class="form-label mb-2 d-block text-right" style="text-align: right;">نوع الحساب</label>
-                    <div class="d-flex justify-content-start gap-4" style="direction: rtl;">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="userType" id="typeStudent" value="student" checked>
-                            <label class="form-check-label" for="typeStudent">طالب</label>
+
+                <!-- حقول الطالب -->
+                <div id="studentFields">
+                    <div class="form-group">
+                        <label for="studentUniversity" class="form-label">الجامعة</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="studentUniversity" name="university" class="form-control" placeholder="أدخل اسم جامعتك">
+                            <i class="fa-solid fa-building-columns input-icon"></i>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="userType" id="typeConsultant" value="consultant">
-                            <label class="form-check-label" for="typeConsultant">مستشار</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentCollege" class="form-label">الكلية</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="studentCollege" name="college" class="form-control" placeholder="أدخل اسم كليتك">
+                            <i class="fa-solid fa-school input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentMajor" class="form-label">التخصص</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="studentMajor" name="major" class="form-control" placeholder="أدخل تخصصك الدراسي">
+                            <i class="fa-solid fa-book input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentLevel" class="form-label">المستوى الدراسي</label>
+                        <div class="input-wrapper">
+                            <select id="studentLevel" name="level" class="form-control" style="appearance: none; -webkit-appearance: none;">
+                                <option value="" disabled selected>اختر مستواك الدراسي</option>
+                                <option value="1">المستوى الأول</option>
+                                <option value="2">المستوى الثاني</option>
+                                <option value="3">المستوى الثالث</option>
+                                <option value="4">المستوى الرابع</option>
+                                <option value="5">المستوى الخامس</option>
+                                <option value="6">المستوى السادس</option>
+                                <option value="7">المستوى السابع</option>
+                                <option value="8">المستوى الثامن</option>
+                                <option value="masters">ماجستير</option>
+                                <option value="phd">دكتوراه</option>
+                            </select>
+                            <i class="fa-solid fa-layer-group input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- حقول المستشار -->
+                <div id="consultantFields" style="display: none;">
+                    <div class="form-group">
+                        <label for="consultantSpecialty" class="form-label">التخصص</label>
+                        <div class="input-wrapper">
+                            <select id="consultantSpecialty" name="specialty" class="form-control" style="appearance: none; -webkit-appearance: none;">
+                                <option value="" disabled selected>اختر تخصصك</option>
+                                <option value="ai">ذكاء اصطناعي (AI)</option>
+                                <option value="cyber">أمن سيبراني (Cyber Security)</option>
+                                <option value="it">تقنية معلومات (IT)</option>
+                                <option value="data">علوم البيانات (Data Science)</option>
+                                <option value="software">هندسة البرمجيات</option>
+                                <option value="networks">شبكات الحاسب</option>
+                            </select>
+                            <i class="fa-solid fa-microchip input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consultantDegree" class="form-label">الدرجة العلمية</label>
+                        <div class="input-wrapper">
+                            <select id="consultantDegree" name="degree" class="form-control" style="appearance: none; -webkit-appearance: none;">
+                                <option value="" disabled selected>اختر درجتك العلمية</option>
+                                <option value="bachelor">بكالوريوس</option>
+                                <option value="masters">ماجستير</option>
+                                <option value="phd">دكتوراه</option>
+                                <option value="professor">أستاذ جامعي</option>
+                            </select>
+                            <i class="fa-solid fa-graduation-cap input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consultantExperience" class="form-label">سنوات الخبرة</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="consultantExperience" name="experience" class="form-control" placeholder="عدد سنوات الخبرة" min="0" max="60">
+                            <i class="fa-solid fa-briefcase input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consultantBio" class="form-label">نبذة تعريفية</label>
+                        <div class="input-wrapper">
+                            <textarea id="consultantBio" name="bio" class="form-control" placeholder="اكتب نبذة مختصرة عن خبراتك وتخصصك" rows="3" style="border-radius: 16px; resize: none; padding-top: 14px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="consultantPrice" class="form-label">سعر الاستشارة (بالريال)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="consultantPrice" name="price" class="form-control" placeholder="أدخل سعر الجلسة الواحدة" min="0">
+                            <i class="fa-solid fa-tag input-icon"></i>
                         </div>
                     </div>
                 </div>
@@ -99,8 +182,14 @@
                 </button>
                 
                 <div class="auth-footer">
-                    <span>لديك حساب بالفعل؟</span>
+                    <span>لديك حساب بالفعل؟;</span>
                     <a href="login.html" class="auth-link">تسجيل الدخول</a>
+                </div>
+                <div style="margin-top: 12px; text-align: center;">
+                    <a href="choose-account.html" style="font-size: 0.85rem; color: var(--text-muted); text-decoration: none;">
+                        <i class="fa-solid fa-arrow-right-long" style="margin-left: 4px;"></i>
+                        تغيير نوع الحساب
+                    </a>
                 </div>
             </form>
 
@@ -145,30 +234,46 @@
         </div>
     </div>
     <script>
-        // Step 1: Register to Verification
+        // ── Read account type from URL ──
+        const urlParams   = new URLSearchParams(window.location.search);
+        const accountType = urlParams.get('type') || 'student';
+
+        const studentFields    = document.getElementById('studentFields');
+        const consultantFields = document.getElementById('consultantFields');
+        const subtitle         = document.getElementById('registerSubtitle');
+
+        if (accountType === 'consultant') {
+            studentFields.style.display    = 'none';
+            consultantFields.style.display = 'block';
+            subtitle.textContent = 'إنشاء حساب مستشار لتقديم خبراتك الأكاديمية للطلاب';
+        } else {
+            studentFields.style.display    = 'block';
+            consultantFields.style.display = 'none';
+            subtitle.textContent = 'إنشاء حساب طالب للوصول إلى الاستشارات الأكاديمية';
+        }
+
+        // ── Step 1: Register → Verification ──
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('registerBtn');
+            const btn     = document.getElementById('registerBtn');
             const spinner = btn.querySelector('.spinner-border');
-            
-            btn.disabled = true;
+
+            btn.disabled          = true;
             spinner.style.display = 'inline-block';
-            
-            setTimeout(() => {
-                document.getElementById('registerForm').style.display = 'none';
+
+            setTimeout(function() {
+                document.getElementById('registerForm').style.display    = 'none';
                 document.getElementById('verificationStep').style.display = 'block';
-                btn.disabled = false;
+                btn.disabled          = false;
                 spinner.style.display = 'none';
             }, 800);
         });
 
-        // Step 2: Verification to Success
+        // ── Step 2: Verification → Success ──
         document.getElementById('verifyForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Simple UI toggle for experience only
             document.getElementById('verificationStep').style.display = 'none';
-            document.getElementById('successStep').style.display = 'block';
+            document.getElementById('successStep').style.display      = 'block';
         });
     </script>
     <script src="js/script.js"></script>
